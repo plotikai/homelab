@@ -31,7 +31,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Vancouver
-      - PLEX_CLAIM=claim-s6-ZV1uHyqbFZNiSLAh9 # Get claim code: https://www.plex.tv/claim/
+      - PLEX_CLAIM=CLAIMCODE # Get claim code: https://www.plex.tv/claim/
       - VERSION=docker
       - NVIDIA_VISIBLE_DEVICES=all # To passthrough GPU to container
     volumes:

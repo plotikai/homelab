@@ -29,13 +29,15 @@ docker run -d \
   -e PUID=1000 \
   -e PGID=1000 \
   -e TZ="America/Vancouver" \ 
-  -e PLEX_CLAIM="claim-s6-ZV1uHyqbFZNiSLAh9" \ # Get claim code: https://www.plex.tv/claim/
+  -e PLEX_CLAIM="claim-s6-ZV1uHyqbFZNiSLAh9" \     # Get claim code: https://www.plex.tv/claim/
   -e VERSION=docker \
-  -e NVIDIA_VISIBLE_DEVICES=all \ # To passthrough GPU to container
+  -e NVIDIA_VISIBLE_DEVICES=all \                  # To passthrough GPU to container
   -v plex_config:/config \
   -v /mnt/media/movies:/Movies \
   -v /mnt/media/television:/Television \
-	-v /mnt/media/music:/Music \
+  -v /mnt/media/music:/Music \
+  --device /dev/dri/renderD128:/dev/dri/renderD128 # If Intel Quick Sync is enabled
+  --device /dev/dri/card0:/dev/dri/card0           # If Intel Quick Sync is enabled
   --restart unless-stopped \
   lscr.io/linuxserver/plex:latest
 

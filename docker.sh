@@ -38,3 +38,25 @@ docker run -d \
 	-v /mnt/media/music:/Music \
   --restart unless-stopped \
   lscr.io/linuxserver/plex:latest
+
+# Install Watchtower https://containrrr.dev/watchtower
+docker run --detach \
+    --name watchtower \
+    -e TZ="America/Vancouver" \ 
+    -e WATCHTOWER_CLEANUP="true" # Removes old image
+    --volume /var/run/docker.sock:/var/run/docker.sock \
+    containrrr/watchtower
+
+# Install Kasm https://kasmweb.com/docs/latest/install/single_server_install.html
+# Create swap first
+sudo fallocate -l 4g /mnt/4GiB.swap
+sudo chmod 600 /mnt/4GiB.swap
+sudo mkswap /mnt/4GiB.swap
+sudo swapon /mnt/4GiB.swap
+cat /proc/swaps # Verify swap exists
+echo '/mnt/4GiB.swap swap swap defaults 0 0' | sudo tee -a /etc/fstab # Make swap available on boot
+
+cd /tmp
+curl -O https://kasm-static-content.s3.amazonaws.com/kasm_release_1.14.0.3a7abb.tar.gz
+tar -xf kasm_release_1.14.0.3a7abb.tar.gz
+sudo bash kasm_release/install.sh
